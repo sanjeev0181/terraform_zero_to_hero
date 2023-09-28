@@ -92,6 +92,10 @@ resource "aws_instance" "webserver2" {
 }
 
 #create alb
+#Provides a Target Group resource for use with Load Balancer resources.
+
+#https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lb_target_group.html
+
 resource "aws_lb" "myalb" {
   name               = "myalb"
   internal           = false
@@ -117,6 +121,8 @@ resource "aws_lb_target_group" "tg" {
   }
 }
 
+
+#https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lb_target_group_attachment
 resource "aws_lb_target_group_attachment" "attach1" {
   target_group_arn = aws_lb_target_group.tg.arn
   target_id        = aws_instance.webserver1.id
